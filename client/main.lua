@@ -264,7 +264,7 @@ function TaxiGarage()
             header = Lang:t("menu.boss_menu"),
             txt = "",
             params = {
-                event = "qb-bossmenu:client:forceMenu"
+                event = "qb-bossmenu:client:OpenMenu"
             }
         }
     end
@@ -285,8 +285,7 @@ RegisterNetEvent("qb-taxi:client:TakeVehicle", function(data)
         local coords = vector3(Config.CabSpawns[SpawnPoint].x,Config.CabSpawns[SpawnPoint].y,Config.CabSpawns[SpawnPoint].z)
         local CanSpawn = IsSpawnPointClear(coords, 2.0)
         if CanSpawn then
-            QBCore.Functions.TriggerCallback('QBCore:Server:SpawnVehicle', function(netId)
-                local veh = NetToVeh(netId)
+            QBCore.Functions.SpawnVehicle(data.model, function(veh)
                 SetVehicleNumberPlateText(veh, "TAXI"..tostring(math.random(1000, 9999)))
                 exports['LegacyFuel']:SetFuel(veh, 100.0)
                 closeMenuFull()
@@ -294,7 +293,7 @@ RegisterNetEvent("qb-taxi:client:TakeVehicle", function(data)
                 TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1)
                 TriggerEvent("vehiclekeys:client:SetOwner", QBCore.Functions.GetPlate(veh))
                 SetVehicleEngineOn(veh, true, true)
-            end, data.model, coords, true)
+            end, coords, true)
         else
             QBCore.Functions.Notify(Lang:t("info.no_spawn_point"), "error")
         end

@@ -18,10 +18,13 @@ local Translations = {
         ["call_npc"] = "[E] Chamar NPC",
         ["blip_name"] = "Taxis da Baixa",
         ["taxi_label_1"] = "Taxi",
+		["no_spawn_point"] = "Unable to find a location to bring the cab",
+        ["taxi_returned"] = "Cab Parked"
     },
     menu = {
         ["taxi_menu_header"] = "Veículos de Taxi",
         ["close_menu"] = "⬅ Fechar Menu",
+		['boss_menu'] = "Boss Menu"
     }
 }
 Lang = Locale:new({
